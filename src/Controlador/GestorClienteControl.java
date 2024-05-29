@@ -1,11 +1,9 @@
 package Controlador;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 public class GestorClienteControl implements ActionListener {
     Modelo.GestorCliente clientesModelo;
@@ -77,12 +75,10 @@ public class GestorClienteControl implements ActionListener {
             JOptionPane.showMessageDialog(consultarClienteVista, "Por favor, seleccione un cliente para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         int confirm = JOptionPane.showConfirmDialog(consultarClienteVista, "¿Está seguro de que desea eliminar el cliente seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) {
             return;
         }
-
         int clientId = Integer.parseInt((String) consultarClienteVista.tblDatos.getValueAt(selectedRow, 0));
         clientesModelo.eliminarCliente(clientId);
 
@@ -90,4 +86,3 @@ public class GestorClienteControl implements ActionListener {
         buscarClientes();
     }
 }
-

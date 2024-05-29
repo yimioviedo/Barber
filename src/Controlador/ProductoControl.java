@@ -22,8 +22,7 @@ public class ProductoControl implements ActionListener {
             String nombreProducto = productoVista.txtNombreProducto.getText();
             String descripcion = productoVista.txtDescripcion.getText();
             double precio = Double.parseDouble(productoVista.txtPrecio.getText());
-            int stock = Integer.parseInt(productoVista.txtStock.getText());
-            
+            int stock = Integer.parseInt(productoVista.txtStock.getText());            
 
             productoModelo = new Modelo.Producto(Id, proveedorId, nombreProducto, 
                     descripcion, precio, stock);
@@ -44,6 +43,4 @@ public class ProductoControl implements ActionListener {
     }
 
 }
-
-    
 
