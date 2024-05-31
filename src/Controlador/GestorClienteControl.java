@@ -1,4 +1,5 @@
 package Controlador;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -6,35 +7,38 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class GestorClienteControl implements ActionListener {
-    Modelo.GestorCliente clientesModelo;
-    Vista.ConsClienteInternalFrame consultarClienteVista;
+    Modelo.GestorCliente clientesModelo; // Modelo para gestionar los clientes
+    Vista.ConsClienteInternalFrame consultarClienteVista; // Vista para consultar clientes
     
-    // Constructor
-    
+    // Constructor que inicializa la vista y el modelo, y registra los action listeners    
     public GestorClienteControl(Vista.ConsClienteInternalFrame consultarClienteVista){
         this.consultarClienteVista = consultarClienteVista;
         clientesModelo = new Modelo.GestorCliente();
         
-        // Registering action listeners
+        // Registra los listeners de los botones en la vista
         this.consultarClienteVista.btnEliminar.addActionListener(this);
         this.consultarClienteVista.btnAceptar.addActionListener(this);
     
     }    
+    
+    // Método que maneja los eventos de los botones
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(consultarClienteVista.btnAceptar)) {
-            buscarClientes();
+            buscarClientes(); // Llama al método para buscar clientes
         } else if (e.getSource().equals(consultarClienteVista.btnEliminar)) {
-            eliminarCliente();
+            eliminarCliente(); // Llama al método para eliminar clientes
         }
     }    
-    
+    // Método para buscar clientes basado en un parámetro y su valor
     private void buscarClientes() {
         DefaultTableModel tModelo;
+        
         String valor = consultarClienteVista.txtValor.getText();
         int parametro =0;
         
+        // Determina el parámetro de búsqueda seleccionado        
         if(consultarClienteVista.rdb_Id.isSelected()){
             parametro =1;        
         }
@@ -50,15 +54,21 @@ public class GestorClienteControl implements ActionListener {
         if(consultarClienteVista.rdb_Email.isSelected()){
             parametro =5;        
         }
-        LinkedList<Modelo.Cliente> clientes = clientesModelo.
-                getClientebyParametro(parametro,valor);
+        
+        // Obtiene la lista de clientes que coinciden con el parámetro y valor de búsqueda
+        LinkedList<Modelo.Cliente> clientes = (LinkedList<Modelo.Cliente>)
+                clientesModelo.getClienteByParametro(parametro, valor);
+
+        
         String registro[] = new String[5];
         
+        // Define los títulos de las columnas de la tabla        
         String [] Titulos = {"Id", "Nombre", "Apellido", "Telefono", "Email"};
         
         tModelo = new DefaultTableModel();
         tModelo.setColumnIdentifiers(Titulos);
         
+        // Llena el modelo de la tabla con los datos de los clientes        
         for (Modelo.Cliente c : clientes) {
             registro[0] = String.valueOf(c.getId());
             registro[1] = c.getNombre();
@@ -67,20 +77,28 @@ public class GestorClienteControl implements ActionListener {
             registro[4] = c.getEmail();
             tModelo.addRow(registro);        
         }
+        // Establece el modelo de la tabla en la vista con los datos obtenidos
        consultarClienteVista.tblDatos.setModel(tModelo);
     }
+    // Método para eliminar un cliente seleccionado
     private void eliminarCliente() {
         int selectedRow = consultarClienteVista.tblDatos.getSelectedRow();
         if (selectedRow == -1) {
+            // Muestra un mensaje de error si no hay ninguna fila seleccionada
             JOptionPane.showMessageDialog(consultarClienteVista, "Por favor, seleccione un cliente para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        // Muestra un cuadro de confirmación para asegurarse de que el usuario quiere eliminar el cliente
         int confirm = JOptionPane.showConfirmDialog(consultarClienteVista, "¿Está seguro de que desea eliminar el cliente seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) {
             return;
         }
+        // Obtiene el ID del cliente seleccionado
         int clientId = Integer.parseInt((String) consultarClienteVista.tblDatos.getValueAt(selectedRow, 0));
         clientesModelo.eliminarCliente(clientId);
+        
+         
+// Llama al método del modelo para eliminar el cliente
 
         // Actualizar la tabla después de eliminar el cliente
         buscarClientes();

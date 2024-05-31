@@ -4,22 +4,31 @@ import javax.swing.table.DefaultTableModel;
 
 public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
 
+    // Controlador para manejar las acciones en el formulario
     public Controlador.GestorProductoControl gestorproductoControl;
+    // Modelo de tabla para mostrar los datos de los productos
     private DefaultTableModel tabla;
+
+    // Constructor
     public ConsProductoInternalFrame() {
-        initComponents();
+        initComponents(); // Inicializa los componentes del formulario
+        // Crea una instancia del controlador y le pasa la referencia de este formulario
         gestorproductoControl = new Controlador.GestorProductoControl(this);
+        // Define los títulos de las columnas para la tabla
         String titulosTabla[] = {"Id", "ProveedorId", "NombreProducto", "Descripcion"};
-        tabla = new DefaultTableModel(null,titulosTabla);
+        // Inicializa el modelo de la tabla con los títulos de las columnas
+        tabla = new DefaultTableModel(null, titulosTabla);
+        // Asigna el modelo de la tabla al componente de la tabla en el formulario
         tblDatos.setModel(tabla);
+        // Registra el controlador como el listener para los botones de aceptar y eliminar
         btnAceptar.addActionListener(gestorproductoControl);
         btnEliminar.addActionListener(gestorproductoControl);
-        
     }
-    
-    public DefaultTableModel getTableModel(){
-    return tabla;
-    
+
+    // Método para obtener el modelo de la tabla
+    public DefaultTableModel getTableModel() {
+        return tabla;
+
     }
 
     /**

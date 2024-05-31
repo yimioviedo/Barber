@@ -1,24 +1,31 @@
 package Vista;
 
 public class PrincipalJFrame extends javax.swing.JFrame {
+    // Declaración de los formularios internos
 RegclienteInternalFrame regclienteInternalFrame;
 ConsClienteInternalFrame consClienteInternalFrame;
 RegproductoInternalFrame regproductoInternalFrame;
 ConsProductoInternalFrame consProductoInternalFrame;
-    
+
+// Constructor de la clase PrincipalJFrame    
     public PrincipalJFrame() {
+        
+        // Inicialización de los formularios internos
         regclienteInternalFrame = new RegclienteInternalFrame();
         consClienteInternalFrame = new ConsClienteInternalFrame();
         regproductoInternalFrame = new RegproductoInternalFrame();
         consProductoInternalFrame = new ConsProductoInternalFrame();
-                
+        
+        // Añadir los formularios internos al JFrame principal                
         add(regclienteInternalFrame);
         add(consClienteInternalFrame);
         add(regproductoInternalFrame);
         add(consProductoInternalFrame);
         
+        // Inicialización de los componentes del JFrame (generado automáticamente por NetBeans)        
         initComponents();
         
+         // Configurar el JFrame para que se maximice al abrirse
         setExtendedState(MAXIMIZED_BOTH);
     }
 

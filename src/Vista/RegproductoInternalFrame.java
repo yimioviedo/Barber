@@ -2,10 +2,17 @@ package Vista;
 
 public class RegproductoInternalFrame extends javax.swing.JInternalFrame {
     
+    // Controlador para manejar las acciones en el formulario    
     private Controlador.ProductoControl productoControlador;
+    
+    // Constructor
     public RegproductoInternalFrame() {
-        initComponents();
+        initComponents(); // Inicializa los componentes del formulario
+        
+        // Crea una instancia del controlador y le pasa la referencia de este formulario        
         productoControlador = new Controlador.ProductoControl(this);
+        
+        // Registra el controlador como el listener para los botones de registrar y nuevo
         btnRegistrar.addActionListener(productoControlador);
         btnNuevo.addActionListener(productoControlador);
         

@@ -5,39 +5,45 @@ import java.awt.event.ActionListener;
 
 public class ClienteControl implements ActionListener {
 
-    Vista.RegclienteInternalFrame clienteVista;
-    Modelo.Cliente clienteModelo;
-    Modelo.GestorCliente gestorClienteModelo;
+    Vista.RegclienteInternalFrame clienteVista; // Referencia al formulario de cliente
+    Modelo.Cliente clienteModelo; // Modelo de cliente
+    Modelo.GestorCliente gestorClienteModelo; // Gestor de clientes
 
+    // Constructor que recibe la vista del cliente como parámetro
     public ClienteControl(Vista.RegclienteInternalFrame clienteVista) {
         this.clienteVista = clienteVista;
-        gestorClienteModelo = new Modelo.GestorCliente();
-
+        gestorClienteModelo = new Modelo.GestorCliente(); // Inicializa el gestor de clientes
     }
 
+    // Método para manejar los eventos de los botones
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Si se hace clic en el botón Registrar
         if (e.getSource().equals(clienteVista.btnRegistrar)) {
+            // Se obtienen los datos del formulario
             int Id = Integer.parseInt(clienteVista.txtId.getText());
             String nombre = clienteVista.txtNombre.getText();
             String apellido = clienteVista.txtApellido.getText();
             String telefono = clienteVista.txtTelefono.getText();
             String email = clienteVista.txtEmail.getText();
 
+            // Se crea un nuevo objeto Cliente con los datos obtenidos
             clienteModelo = new Modelo.Cliente(Id, nombre, apellido, telefono, email);
 
+            // Se registra el cliente utilizando el gestor de clientes
             gestorClienteModelo.RegistrarClientes(clienteModelo);
         }
 
+        // Si se hace clic en el botón Nuevo
         if (e.getSource().equals(clienteVista.btnNuevo)) {
+            // Se limpian los campos del formulario
             clienteVista.txtId.setText("");
             clienteVista.txtNombre.setText("");
             clienteVista.txtApellido.setText("");
             clienteVista.txtTelefono.setText("");
             clienteVista.txtEmail.setText("");
-            clienteVista.txtId.requestFocus();
-
+            clienteVista.txtId.requestFocus(); // Se coloca el foco en el campo de ID
         }
     }
-
 }
+

@@ -4,18 +4,27 @@ import javax.swing.table.DefaultTableModel;
 
 public class ConsClienteInternalFrame extends javax.swing.JInternalFrame {
     
+    // Controlador para manejar las acciones en el formulario
     public Controlador.GestorClienteControl gestorclienteControl;
+    // Modelo de tabla para mostrar los datos de los clientes
     private DefaultTableModel tabla;
+    
+    // Constructor    
     public ConsClienteInternalFrame() {
-        initComponents();
+        initComponents(); // Inicializa los componentes del formulario
+        // Crea una instancia del controlador y le pasa la referencia de este formulario
         gestorclienteControl = new Controlador.GestorClienteControl(this);
+        // Define los títulos de las columnas para la tabla
         String titulosTabla[] = {"Id", "Nombre", "Apellido", "Telefono", "Email"};
+        // Inicializa el modelo de la tabla con los títulos de las columnas
         tabla = new DefaultTableModel(null,titulosTabla);
+         // Asigna el modelo de la tabla al componente de la tabla en el formulario
         tblDatos.setModel(tabla);
+         // Registra el controlador como el listener para los botones de aceptar y eliminar
         btnAceptar.addActionListener(gestorclienteControl);
         btnEliminar.addActionListener(gestorclienteControl);
     }
-    
+    // Método para obtener el modelo de la tabla
     public DefaultTableModel getTableModel(){
     return tabla;
     }
