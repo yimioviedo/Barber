@@ -5,10 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Modelo.GestorCliente;
+import Modelo.Cliente;
+import Vista.ConsClienteInternalFrame;
 
 public class GestorClienteControl implements ActionListener {
-    Modelo.GestorCliente clientesModelo; // Modelo para gestionar los clientes
-    Vista.ConsClienteInternalFrame consultarClienteVista; // Vista para consultar clientes
+    GestorCliente clientesModelo; // Modelo para gestionar los clientes
+    ConsClienteInternalFrame consultarClienteVista; // Vista para consultar clientes
     
     // Constructor que inicializa la vista y el modelo, y registra los action listeners    
     public GestorClienteControl(Vista.ConsClienteInternalFrame consultarClienteVista){
@@ -33,8 +36,7 @@ public class GestorClienteControl implements ActionListener {
     }    
     // Método para buscar clientes basado en un parámetro y su valor
     private void buscarClientes() {
-        DefaultTableModel tModelo;
-        
+        DefaultTableModel tModelo = new DefaultTableModel();        
         String valor = consultarClienteVista.txtValor.getText();
         int parametro =0;
         
@@ -56,20 +58,17 @@ public class GestorClienteControl implements ActionListener {
         }
         
         // Obtiene la lista de clientes que coinciden con el parámetro y valor de búsqueda
-        LinkedList<Modelo.Cliente> clientes = (LinkedList<Modelo.Cliente>)
-                clientesModelo.getClienteByParametro(parametro, valor);
+        LinkedList<Cliente> clientes = clientesModelo.getClienteByParametro
+        (parametro, valor);
 
         
-        String registro[] = new String[5];
-        
+        String registro[] = new String[5];        
         // Define los títulos de las columnas de la tabla        
-        String [] Titulos = {"Id", "Nombre", "Apellido", "Telefono", "Email"};
-        
-        tModelo = new DefaultTableModel();
+        String [] Titulos = {"Id", "Nombre", "Apellido", "Telefono", "Email"};        
         tModelo.setColumnIdentifiers(Titulos);
         
         // Llena el modelo de la tabla con los datos de los clientes        
-        for (Modelo.Cliente c : clientes) {
+        for (Cliente c : clientes) {
             registro[0] = String.valueOf(c.getId());
             registro[1] = c.getNombre();
             registro[2] = c.getApellido();

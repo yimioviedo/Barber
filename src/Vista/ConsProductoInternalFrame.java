@@ -41,16 +41,28 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        rdb_Descripcion1 = new javax.swing.JRadioButton();
         rdb_Id = new javax.swing.JRadioButton();
         rdb_ProveedorId = new javax.swing.JRadioButton();
         rdb_NombreProducto = new javax.swing.JRadioButton();
-        rdb_Descripcion = new javax.swing.JRadioButton();
+        rdb_Stock = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
         btnAceptar = new javax.swing.JButton();
+        rdb_Descripcion = new javax.swing.JRadioButton();
+        rdb_Precio = new javax.swing.JRadioButton();
+
+        buttonGroup1.add(rdb_Descripcion1);
+        rdb_Descripcion1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rdb_Descripcion1.setText("Descripción");
+        rdb_Descripcion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdb_Descripcion1ActionPerformed(evt);
+            }
+        });
 
         setClosable(true);
         setTitle("Consultar - Eliminar Productos");
@@ -74,7 +86,7 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
                 rdb_ProveedorIdActionPerformed(evt);
             }
         });
-        getContentPane().add(rdb_ProveedorId, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
+        getContentPane().add(rdb_ProveedorId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         buttonGroup1.add(rdb_NombreProducto);
         rdb_NombreProducto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -84,17 +96,17 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
                 rdb_NombreProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(rdb_NombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
+        getContentPane().add(rdb_NombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
-        buttonGroup1.add(rdb_Descripcion);
-        rdb_Descripcion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        rdb_Descripcion.setText("Descripción");
-        rdb_Descripcion.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdb_Stock);
+        rdb_Stock.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rdb_Stock.setText("Stock");
+        rdb_Stock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdb_DescripcionActionPerformed(evt);
+                rdb_StockActionPerformed(evt);
             }
         });
-        getContentPane().add(rdb_Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
+        getContentPane().add(rdb_Stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Valor a Buscar");
@@ -143,6 +155,26 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
         });
         getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, -1, -1));
 
+        buttonGroup1.add(rdb_Descripcion);
+        rdb_Descripcion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rdb_Descripcion.setText("Descripción");
+        rdb_Descripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdb_DescripcionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rdb_Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
+
+        buttonGroup1.add(rdb_Precio);
+        rdb_Precio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rdb_Precio.setText("Precio");
+        rdb_Precio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdb_PrecioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rdb_Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -154,9 +186,9 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdb_ProveedorIdActionPerformed
 
-    private void rdb_DescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_DescripcionActionPerformed
+    private void rdb_StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_StockActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdb_DescripcionActionPerformed
+    }//GEN-LAST:event_rdb_StockActionPerformed
 
     private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
@@ -174,6 +206,18 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    private void rdb_Descripcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_Descripcion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdb_Descripcion1ActionPerformed
+
+    private void rdb_DescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_DescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdb_DescripcionActionPerformed
+
+    private void rdb_PrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdb_PrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdb_PrecioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAceptar;
@@ -182,9 +226,12 @@ public class ConsProductoInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JRadioButton rdb_Descripcion;
+    public javax.swing.JRadioButton rdb_Descripcion1;
     public javax.swing.JRadioButton rdb_Id;
     public javax.swing.JRadioButton rdb_NombreProducto;
+    public javax.swing.JRadioButton rdb_Precio;
     public javax.swing.JRadioButton rdb_ProveedorId;
+    public javax.swing.JRadioButton rdb_Stock;
     public javax.swing.JTable tblDatos;
     public javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables

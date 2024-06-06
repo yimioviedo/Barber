@@ -8,8 +8,7 @@ RegproductoInternalFrame regproductoInternalFrame;
 ConsProductoInternalFrame consProductoInternalFrame;
 
 // Constructor de la clase PrincipalJFrame    
-    public PrincipalJFrame() {
-        
+    public PrincipalJFrame() {        
         // Inicialización de los formularios internos
         regclienteInternalFrame = new RegclienteInternalFrame();
         consClienteInternalFrame = new ConsClienteInternalFrame();

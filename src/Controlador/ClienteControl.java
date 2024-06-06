@@ -2,6 +2,7 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class ClienteControl implements ActionListener {
 
@@ -32,6 +33,9 @@ public class ClienteControl implements ActionListener {
 
             // Se registra el cliente utilizando el gestor de clientes
             gestorClienteModelo.RegistrarClientes(clienteModelo);
+            
+            // Mostrar mensaje de confirmación
+            JOptionPane.showMessageDialog(clienteVista, "Cliente registrado con éxito.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
         }
 
         // Si se hace clic en el botón Nuevo

@@ -2,6 +2,8 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 
 public class ProductoControl implements ActionListener {
     Vista.RegproductoInternalFrame productoVista; // Referencia al formulario de producto
@@ -28,10 +30,15 @@ public class ProductoControl implements ActionListener {
             int stock = Integer.parseInt(productoVista.txtStock.getText());            
 
             // Se crea un nuevo objeto Producto con los datos obtenidos
-            productoModelo = new Modelo.Producto(Id, proveedorId, nombreProducto, descripcion, precio, stock);
+            productoModelo = new Modelo.Producto(Id, proveedorId, nombreProducto, 
+                    descripcion, precio, stock);
             
             // Se registra el producto utilizando el gestor de productos
             gestorProductoModelo.RegistrarProductos(productoModelo);
+            
+            // Mostrar mensaje de confirmación
+            JOptionPane.showMessageDialog(productoVista, "Producto registrado"
+                    + " con éxito.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
         }
 
         // Si se hace clic en el botón Nuevo

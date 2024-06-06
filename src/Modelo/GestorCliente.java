@@ -1,76 +1,96 @@
 package Modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
-import java.util.List;
 
 public class GestorCliente {
-
-    // Lista dinámica para almacenar los clientes
-    private LinkedList<Cliente> clientes;
-
-    // Constructor para inicializar la lista de clientes
-    public GestorCliente() {
-        this.clientes = new LinkedList<>();
-    }
-
-    // Método para registrar un nuevo cliente
-    public void RegistrarClientes(Cliente cliente) {
-        if (cliente != null) {
-            clientes.add(cliente);
-            System.out.println("Cliente registrado: " + cliente);
+    
+    // Método para consultar  clientes basados en un parámetro específico
+    public LinkedList<Cliente> getClienteByParametro(int parametro, String valor) {
+        LinkedList<Cliente> clientes = new LinkedList<>();
+        String query = "SELECT * FROM Cliente WHERE ";
+        // Construcción de la consulta SQL basada en el parámetro  
+        switch (parametro) {
+            case 1:
+                query += "id = ?";
+                break;
+            case 2:
+                query += "nombre LIKE ?";
+                valor = "%" + valor + "%";
+                break;
+            case 3:
+                query += "apellido LIKE ?";
+                valor = "%" + valor + "%";
+                break;
+            case 4:
+                query += "telefono LIKE ?";
+                valor = "%" + valor + "%";
+                break;
+            case 5:
+                query += "email LIKE ?";
+                valor = "%" + valor + "%";
+                break;
+            default:
+                query += "1 = 1"; // No filter
+        }
+        // Ejecución de la consulta
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            if (parametro > 0) {
+                // Asignación del valor al parámetro correspondiente según el tipo de dato
+        if (parametro == 1) {
+            ps.setInt(1, Integer.parseInt(valor)); // Para el parámetro ID
         } else {
-            throw new UnsupportedOperationException("Cliente no puede ser nulo");
+            ps.setString(1, valor); // Para los demás parámetros de tipo String
         }
     }
-
-
-    // Método para buscar clientes por parámetro y valor específicos
-    public List<Cliente> getClienteByParametro(int parametro, String valor) {
-        // Lista para almacenar los clientes que cumplen con el criterio de búsqueda
-        LinkedList<Cliente> resultado = new LinkedList<>();
-        // Iterar sobre la lista de clientes
-        for (Cliente cliente : clientes) {
-            // Evaluar el parámetro de búsqueda
-            switch (parametro) {
-                case 1: // Buscar por ID
-                    if (String.valueOf(cliente.getId()).equals(valor)) {
-                        resultado.add(cliente); // Agregar cliente si el ID coincide
-                    }
-                    break;
-                case 2: // Buscar por nombre
-                    if (cliente.getNombre().equals(valor)) {
-                        resultado.add(cliente); // Agregar cliente si el nombre coincide
-                    }
-                    break;
-                case 3: // Buscar por apellido
-                    if (cliente.getApellido().equals(valor)) {
-                        resultado.add(cliente); // Agregar cliente si el apellido coincide
-                    }
-                    break;
-                case 4: // Buscar por teléfono
-                    if (cliente.getTelefono().equals(valor)) {
-                        resultado.add(cliente); // Agregar cliente si el teléfono coincide
-                    }
-                    break;
-                case 5: // Buscar por email
-                    if (cliente.getEmail().equals(valor)) {
-                        resultado.add(cliente); // Agregar cliente si el email coincide
-                    }
-                    break;
-                default:
-                    // No hacer nada si el parámetro no es válido
-                    break;
+            try (ResultSet rs = ps.executeQuery()) {
+                 // Procesamiento del resultado de la consulta
+                while (rs.next()) {
+                    Cliente cliente = new Cliente(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido"),
+                            rs.getString("telefono"),
+                            rs.getString("email")
+                    );
+                    clientes.add(cliente); // Agregar el cliente a la lista
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        // Devolver la lista de clientes que cumplen con el criterio de búsqueda
-        return resultado;
+        return clientes; // Devolver la lista de clientes
     }
-
-    // Método para eliminar un cliente por su ID
+    // Método para registrar un nuevo cliente en la base de datos
+    public void RegistrarClientes(Cliente cliente) {
+        String query = "INSERT INTO Cliente (id, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, cliente.getId());
+            ps.setString(2, cliente.getNombre());
+            ps.setString(3, cliente.getApellido());
+            ps.setString(4, cliente.getTelefono());
+            ps.setString(5, cliente.getEmail());
+            ps.executeUpdate(); // Ejecutar la inserción
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    // Método para eliminar un cliente de la base de datos por su ID
     public void eliminarCliente(int id) {
-        clientes.removeIf(cliente -> cliente.getId() == id);
+        String query = "DELETE FROM Cliente WHERE id = ?";
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
 }
     
 

@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionDB {
-    // Constantes para los datos de conexión a la base de datos barber_shop
-    private static final String URL = "jdbc:mysql://localhost:3306/barber_shop/cliente/producto"; // URL de la base de datos
+    // Constantes para los datos de conexión a la base de datos barber
+    private static final String URL = "jdbc:mysql://localhost:3306/barber_shop"; // URL de la base de datos
     private static final String USER = "root"; // Usuario de la base de datos
     private static final String PASS = ""; // Contraseña de la base de datos
     
