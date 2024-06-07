@@ -66,7 +66,7 @@ public class GestorCliente {
         return clientes; // Devolver la lista de clientes
     }
     // Método para registrar un nuevo cliente en la base de datos
-    public void RegistrarClientes(Cliente cliente) {
+    public boolean RegistrarClientes(Cliente cliente) {
         String query = "INSERT INTO Cliente (id, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = ConexionDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -76,8 +76,10 @@ public class GestorCliente {
             ps.setString(4, cliente.getTelefono());
             ps.setString(5, cliente.getEmail());
             ps.executeUpdate(); // Ejecutar la inserción
+        return true; // Registro exitoso
         } catch (SQLException e) {
             e.printStackTrace();
+            return false; // Registro fallido
         }
     }
     // Método para eliminar un cliente de la base de datos por su ID

@@ -94,10 +94,9 @@ public class GestorClienteControl implements ActionListener {
         }
         // Obtiene el ID del cliente seleccionado
         int clientId = Integer.parseInt((String) consultarClienteVista.tblDatos.getValueAt(selectedRow, 0));
-        clientesModelo.eliminarCliente(clientId);
-        
+        clientesModelo.eliminarCliente(clientId);      
          
-// Llama al método del modelo para eliminar el cliente
+
 
         // Actualizar la tabla después de eliminar el cliente
         buscarClientes();

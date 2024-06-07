@@ -21,6 +21,7 @@ public class ClienteControl implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Si se hace clic en el botón Registrar
         if (e.getSource().equals(clienteVista.btnRegistrar)) {
+            try {
             // Se obtienen los datos del formulario
             int Id = Integer.parseInt(clienteVista.txtId.getText());
             String nombre = clienteVista.txtNombre.getText();
@@ -32,11 +33,21 @@ public class ClienteControl implements ActionListener {
             clienteModelo = new Modelo.Cliente(Id, nombre, apellido, telefono, email);
 
             // Se registra el cliente utilizando el gestor de clientes
-            gestorClienteModelo.RegistrarClientes(clienteModelo);
+            boolean registrado = gestorClienteModelo.RegistrarClientes(clienteModelo);
             
-            // Mostrar mensaje de confirmación
-            JOptionPane.showMessageDialog(clienteVista, "Cliente registrado con éxito.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            // Mostrar mensaje de confirmación o error según el resultado del registro
+                if (registrado) {
+                    JOptionPane.showMessageDialog(clienteVista, "Cliente registrado con éxito.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(clienteVista, "Error al registrar el cliente.", "Registro fallido", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                // Mostrar mensaje de error si ocurre una excepción
+                JOptionPane.showMessageDialog(clienteVista, "Error al registrar el cliente: " + ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
+
 
         // Si se hace clic en el botón Nuevo
         if (e.getSource().equals(clienteVista.btnNuevo)) {

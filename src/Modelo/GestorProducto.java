@@ -79,7 +79,7 @@ public class GestorProducto {
     }
 
     // Método para registrar un nuevo producto en la base de datos
-    public void RegistrarProductos(Producto producto) {
+    public boolean RegistrarProductos(Producto producto) {
         String query = "INSERT INTO Producto (id, proveedorId, nombreProducto, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConexionDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -90,8 +90,10 @@ public class GestorProducto {
             ps.setDouble(5, producto.getPrecio());
             ps.setInt(6, producto.getStock());
             ps.executeUpdate(); // Ejecutar la inserción
+            return true; // Registro exitoso
         } catch (SQLException e) {
             e.printStackTrace();
+            return false; // Registro fallido
         }
     }
 
